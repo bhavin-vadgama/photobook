@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <title>photoME</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700,600" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/colorbox.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+    <link href="css/responsive.min.css" rel="stylesheet">
+
+    <!-- Configure fb script -->
+    <script type="text/javascript" src="js/fb.js"></script>
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <noscript>
+        <style type="text/css">
+            #content {display:none;}
+        </style>
+        <div class="noscriptmsg">
+            <center><h3 style="font-family: monospace; color: red;">You don't have javascript enabled.  Please enable the javascript to process further.</h3></center>
+        </div>
+    </noscript>
+      
+      
+    <!-- begin:navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><span>photoME</span> Gallery</a>
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- end:navbar -->
+
+      <!-- begin:content -->
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1">
+            <div class="post-container">
+              <div class="post-content">
+                <div class="form-signin">
+                  <div class="heading-title">
+                    <h3><i class="fa fa-lock"></i> Sign in</h3>
+                  </div>
+                    <p>Sign in using social networks:</p>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="fb-login-button" onlogin="checkLoginState();" data-scope="email,user_photos,public_profile"  data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false"  data-use-continue-as="true"></div>
+                      </div>
+                    </div>
+                    <hr>
+                </div>  
+              </div>
+            </div>
+          </div>
+          <!-- break -->          
+        </div>
+      </div>
+    </div>
+    <!-- end:content -->
+
+      
+    <!-- begin:footer -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <p>Developed by <b>Bhavin Vadgama</b></p>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <ul class="list-social">
+              <li><a target="_blank" href="https://twitter.com/vadgama_bhavin"><i class="fa fa-twitter"></i></a></li>
+              <li><a target="_blank" href="https://www.instagram.com/bhavin_vadgama/"><i class="fa fa-instagram"></i></a></li>
+              <li><a target="_blank" href="https://www.linkedin.com/in/bhavin-vadgama/"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end:footer -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="js/script.min.js"></script>
+  </body>
+</html>
