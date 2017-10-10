@@ -15,15 +15,6 @@ function downloadAlbum(i){
                     alert('Album download successful. Download the album from top right corner link.');
                 }
             }
-            
-            /*
-            var file_path = 'host/path/file.ext';
-            var a = document.createElement('A');
-            a.href = file_path;
-            a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);*/
         },
         error: function (xhr, status, error) {
             alert(JSON.stringify(xhr) + '\nstatus:' + status + '\nerror:' + error + '\n');
@@ -32,9 +23,8 @@ function downloadAlbum(i){
 }
 
 function downloadSelectedAlbum(){
-    var checkedSize = $('input[name="album_checklist"]:checked').length;//:checked
+    var checkedSize = $('input[name="album_checklist"]:checked').length;
     if(checkedSize>0){
-       //$checked = $('input[name="album_checklist"]');
         var checked = document.getElementsByName('album_checklist');
         var albumIds = [];
         for(var i=0;i<checked.length;i++){

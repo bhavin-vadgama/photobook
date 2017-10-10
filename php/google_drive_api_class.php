@@ -21,8 +21,8 @@ class GoogleDriveAPIClass
     protected $accessToken;
 
     public function GoogleDriveAPIClass(
-    $clientID = '411340050204-g8f4jtq1c55baedf1kellnv02hbsrrm5.apps.googleusercontent.com',
-        $clientSecret = '77QVYnkALL3JLoNZY5iFOZIv',
+    $clientID = '<YOUR GOOGLE API APP ID>',
+        $clientSecret = '<YOUR GOOGLE API APP SECRET>',
         $scope = array('https://www.googleapis.com/auth/drive')
     ) {
         $this->clientId = $clientID;
@@ -34,7 +34,7 @@ class GoogleDriveAPIClass
     public function initializeGClient()
     {
         $this->gclient = new Google_Client();
-        $this->gclient->setApplicationName('rtc_photobook');
+        $this->gclient->setApplicationName('<NAME OF YOUR APP>');
         $this->gclient->setRedirectUri($this->redirectUri);
         $this->gclient->setScopes($this->scope);
         $this->gclient->setClientId($this->clientId);

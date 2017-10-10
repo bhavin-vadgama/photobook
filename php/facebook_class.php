@@ -16,7 +16,7 @@ class FacebookClass
     protected $helper;
     protected $access_token;
 
-    public function FacebookClass($app_id = '1585818674809359', $app_secret = '16a3358c29720a35808502e8090e38af', $graph_version = 'v2.5')
+    public function FacebookClass($app_id = '<YOUR FACEBOOK API CLIENT ID>', $app_secret = '<YOUR FACEBOOK API CLIENT SECRET>', $graph_version = 'v2.5')
     {
         $this->app_id = $app_id;
         $this->app_secret = $app_secret;

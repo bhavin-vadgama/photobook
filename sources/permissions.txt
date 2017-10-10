@@ -1,3 +1,0 @@
-public_profile
-user_photos
-email

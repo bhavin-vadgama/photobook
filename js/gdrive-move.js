@@ -3,8 +3,6 @@ function moveAlbum(i){
     $.ajax({
         url: 'php/gdrive-controller.php',
         type: 'POST',
-        //dataType: 'json',
-        //data: {"fetch-album": '{"id":"12"}'},
         success: function (result) {
             if(result.response=="LINK"){
                 window.location.replace(result.url);
@@ -33,9 +31,8 @@ function moveAlbum(i){
 }
 
 function moveSeleceted(){
-    var checkedSize = $('input[name="album_checklist"]:checked').length;//:checked
+    var checkedSize = $('input[name="album_checklist"]:checked').length;
     if(checkedSize>0){
-       //$checked = $('input[name="album_checklist"]');
         var checked = document.getElementsByName('album_checklist');
         var albumIds = [];
         for(var i=0;i<checked.length;i++){
@@ -45,8 +42,6 @@ function moveSeleceted(){
         $.ajax({
         url: 'php/gdrive-controller.php',
         type: 'POST',
-        //dataType: 'json',
-        //data: {"fetch-album": '{"id":"12"}'},
         success: function (result) {
                 if(result.response=="LINK"){
                     window.location.replace(result.url);
@@ -93,8 +88,6 @@ function moveAll(){
         $.ajax({
         url: 'php/gdrive-controller.php',
         type: 'POST',
-        //dataType: 'json',
-        //data: {"fetch-album": '{"id":"12"}'},
         success: function (result) {
                 if(result.response=="LINK"){
                     window.location.replace(result.url);
