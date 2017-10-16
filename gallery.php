@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 ini_set('memory_limit', '1024M');
 if (!isset($_SESSION['fb_access_token'])) {
     header('location: ./');
@@ -12,8 +12,11 @@ $fb = new FacebookClass();
 $fb->initializeFBWithSession();
 if (isset($_REQUEST['download'])) {
     if (isset($_SESSION['user']['zip'])) {
-        $dd = new Download(null, null, null);
-        $dd->getZip($_SESSION['user']['zip']);
+        $dir = __DIR__.'/user_data/'.$_SESSION['user']['name'].'.zip';
+        if(file_exists($dir)){
+            $dd = new Download(null, null, null);
+            $dd->getZip($dir);
+        }
     }
 }
 ?>
@@ -51,7 +54,7 @@ if (isset($_REQUEST['download'])) {
           <script src="js/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body onunload="unload();">
+    <body>
 
         <noscript>
         <style type="text/css">
@@ -124,7 +127,7 @@ if (isset($_REQUEST['download'])) {
                 <div class="row container-gallery">
 
                     <?php
-                    $response = $fb->getData('/me?fields=albums{name,picture{url},count}');
+                    $response = $fb->getAllAlbums('/me?fields=albums{name,picture{url},count}');
                     for ($i = 0; $i < count($response['albums']['data']); ++$i) {
                         echo '<div class="col-md-2 col-sm-4 col-xs-6" id="' . $response['albums']['data'][$i]['id'] . '">';
                         echo '<div class="post-container" id="' . $response['albums']['data'][$i]['id'] . '">';
