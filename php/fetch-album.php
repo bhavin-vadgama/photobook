@@ -1,12 +1,9 @@
 <?php
 
+ini_set('max_execution_time', 0);
 require_once '../vendor/autoload.php';
 require_once './facebook_class.php';
-set_time_limit(0);
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 if (isset($_SESSION['fb_access_token'])) {
     $fb = new FacebookClass();
@@ -14,7 +11,7 @@ if (isset($_SESSION['fb_access_token'])) {
 
     if (isset($_POST['fetch-album'])) {
         $data = json_decode($_POST['fetch-album']);
-        $response = $fb->getData($data->id . '?fields=name,photo_count,photos.limit(1000){source}');
+        $response = $fb->getAllAlbums($data->id . '?fields=name,photo_count,photos.limit(1000){source}');
         echo json_encode($response);
     }
 } else {
