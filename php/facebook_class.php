@@ -1,11 +1,7 @@
 <?php
 
 require_once __DIR__ . '../../lib/src/Facebook/autoload.php';
-set_time_limit(0);
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 class FacebookClass
 {
@@ -16,7 +12,7 @@ class FacebookClass
     protected $helper;
     protected $access_token;
 
-    public function FacebookClass($app_id = '<YOUR FACEBOOK API CLIENT ID>', $app_secret = '<YOUR FACEBOOK API CLIENT SECRET>', $graph_version = 'v2.5')
+    public function FacebookClass($app_id = '1585818674809359', $app_secret = '16a3358c29720a35808502e8090e38af', $graph_version = 'v2.5')
     {
         $this->app_id = $app_id;
         $this->app_secret = $app_secret;
@@ -77,7 +73,7 @@ class FacebookClass
 
     public function checkForPermissions()
     {
-        $perm = $this->getData('/me/permissions');
+        $perm = $this->getAllAlbums('/me/permissions');
         $flaf = true;
         if (count($perm['data']) > 0) {
             for ($i = 0; $i < count($perm['data']); ++$i) {
@@ -94,7 +90,7 @@ class FacebookClass
 
     public function setSessionParams()
     {
-        $profile = $this->getData('/me?fields=id,name,email,gender,picture{url}');
+        $profile = $this->getAllAlbums('/me?fields=id,name,email,gender,picture{url}');
         $_SESSION['fb_access_token'] = (string) $this->accessToken;
         $_SESSION['user']['id'] = $profile['id'];
         $_SESSION['user']['name'] = $profile['name'];
@@ -113,6 +109,30 @@ class FacebookClass
     public function getData($pattern)
     {
         // /me?fields=id,name,email,gender,picture{url}
+        try {
+            $response = $this->fb->get($pattern);
+            $edge = $response->getGraphNode();
+            $album = $edge->asArray();
+            $edge = $response->getGraphNode()['photos'];
+            $photos = array();
+            
+            do{
+                $photos = array_merge($photos,$edge->asArray());
+                $edge = $this->fb->next($edge);
+            }while($edge !== NULL);
+            
+            $album['photos'] = $photos;
+            return $album;
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+        }
+    }
+    
+    public function getAllAlbums($pattern){
         try {
             $request = $this->fb->get($pattern);
             $request = $request->getDecodedBody();
