@@ -1,11 +1,7 @@
 <?php
 
 //require_once './facebook_class.php';
-set_time_limit(0);
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+ini_set('max_execution_time', 0);
 
 class Download
 {
@@ -54,7 +50,7 @@ class Download
     {
         $albumIds = $this->album_id;
         $profileId = $this->user_name;
-        $tmp_dir = __DIR__ . '../../user_data/';
+        $tmp_dir = __DIR__.'/../user_data/';
 
         if (!is_dir($tmp_dir)) {
             mkdir($tmp_dir, 0777);
@@ -89,7 +85,7 @@ class Download
                     mkdir($path, 0777);
                 }
 
-                foreach ($album['photos']['data'] as $photo) {
+                foreach ($album['photos'] as $photo) {
                     $file = $photo['id'] . '.jpg';
 
                     copy($photo['source'], $path . $file);
@@ -102,7 +98,7 @@ class Download
 
         $zip->close();
         $_SESSION['user']['zip'] = $zipFile;
-
+        $this->deleteUserData(__DIR__.'/../user_data/'.$profileId.'/');
         return $zipFile;
     }
 
@@ -120,12 +116,17 @@ class Download
 
     public function deleteUserData($dir)
     {
-        $files = array_diff(scandir($dir), array('.', '..'));
-
-        foreach ($files as $file) {
-            (is_dir("$dir/$file")) ? $this->deleteUserData("$dir/$file") : unlink("$dir/$file");
+        if (is_dir($dir)){
+            $files = array_diff(scandir($dir), array('.', '..'));
+    
+            foreach ($files as $file) {
+                (is_dir("$dir/$file")) ? $this->deleteUserData("$dir/$file") : unlink("$dir/$file");
+            }
+    
+            return rmdir($dir);
         }
-
-        return rmdir($dir);
+        else if (file_exists($dir)) {
+            unlink($dir);
+        }
     }
 }
