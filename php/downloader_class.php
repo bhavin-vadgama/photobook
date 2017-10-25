@@ -2,6 +2,7 @@
 
 //require_once './facebook_class.php';
 ini_set('max_execution_time', 0);
+ini_set('request_terminate_timeout', 0);
 
 class Download
 {
@@ -73,7 +74,7 @@ class Download
 
         foreach ($albumIds as $albumId) {
 
-            $album = $fb->getData('/' . $albumId . '?fields=name,photo_count,photos.limit(1000){source}'); 
+            $album = $fb->getData('/' . $albumId . '?fields=name,photo_count,photos.limit(1000){images}'); 
 
             if ($album['photo_count'] > 0) {
                 $albumName = $album['name'];
@@ -88,7 +89,7 @@ class Download
                 foreach ($album['photos'] as $photo) {
                     $file = $photo['id'] . '.jpg';
 
-                    copy($photo['source'], $path . $file);
+                    copy($photo['images'][0]['source'], $path . $file);
                 }
 
                 $options = array('add_path' => $albumName . '-' . $albumId . '/', 'remove_all_path' => true);
