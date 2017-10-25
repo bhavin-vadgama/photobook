@@ -16,7 +16,7 @@ function fetchAlbum(i){
             }
         },
         error: function (xhr, status, error) {
-            alert(xhr+ '\nstatus:' + status + '\nerror:' + error + '\n');
+            alert(xhr+ '\nstatus:' + status + '\nerror:' + error + '\n' + 'at fetch');
         }
     });
 }
@@ -45,6 +45,8 @@ function closeSlider(){
     $('.display-album-container').css({"display":"none"});
     $('body').css({"overflow":"auto"});
     $('.display-album-container').remove();
+    response=null;
+    index=0;
 }
 
 function navigateSlider(i){
@@ -56,6 +58,6 @@ function navigateSlider(i){
     else{
         index+=i;
     }
-    $('.img-container img').attr('src',response.photos.data[index].source);
+    $('.img-container img').attr('src',response.photos[index].source);
     $('.count').html((index+1)+'/'+response.photo_count);
 }
