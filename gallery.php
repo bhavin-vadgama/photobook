@@ -1,6 +1,7 @@
 <?php
 
-ini_set('memory_limit', '1024M');
+ini_set('max_execution_time', 0);
+ini_set('request_terminate_timeout', 0);
 if (!isset($_SESSION['fb_access_token'])) {
     header('location: ./');
 }
