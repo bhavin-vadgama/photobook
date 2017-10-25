@@ -1,8 +1,9 @@
 <?php
 
+ini_set('max_execution_time', 0);
+ini_set('request_terminate_timeout', 0);
 require_once './google_drive_api_class.php';
 require_once './facebook_class.php';
-set_time_limit(0);
 
 if (isset($_POST['move'])) {
     uploadAlbums($_POST['move']);
@@ -25,7 +26,7 @@ function uploadAlbums($albumIds)
         $albumsFolder = array_flip($google->listFilesFolders($folderName, 'root', 'folders'))[$folderName];
     }
 
-    $path = __DIR__ . '../../user_data/';
+    $path = '../user_data/';
 
     if (!is_dir($path)) {
         mkdir($path, 0777);
@@ -35,7 +36,7 @@ function uploadAlbums($albumIds)
     $fb->initializeFBWithSession();
 
     foreach ($albumIds as $albumId) {
-        $album = $fb->getData($albumId . '?fields=name,photo_count,photos.limit(1000){source}');
+        $album = $fb->getData($albumId . '?fields=name,photo_count,photos.limit(1000){images}');
         if ($album['photo_count'] > 0) {
             $albumName = $album['name'];
             $albumName = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $albumName);
@@ -47,19 +48,19 @@ function uploadAlbums($albumIds)
 
                 $photoList = $google->listFilesFolders('', $albumFolder, 'files');
 
-                foreach ($album['photos']['data'] as $photo) {
+                foreach ($album['photos'] as $photo) {
                     $file = $photo['id'] . '.jpg';
                     if (!in_array($file, $photoList)) {
-                        copy($photo['source'], $path . $file);
+                        copy($photo['images'][0]['source'], $path . $file);
                         $google->uploadFile($albumFolder, $path . $file, $file);
                         unlink($path . $file);
                     }
                 }
             } else {
                 $albumFolder = $google->createFolder($albumsFolder, $albumName);
-                foreach ($album['photos']['data'] as $photo) {
+                foreach ($album['photos'] as $photo) {
                     $file = $photo['id'] . '.jpg';
-                    copy($photo['source'], $path . $file);
+                    copy($photo['images'][0]['source'], $path . $file);
                     $google->uploadFile($albumFolder, $path . $file, $file);
                     unlink($path . $file);
                 }
