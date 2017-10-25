@@ -17,14 +17,15 @@ function downloadAlbum(i){
             }
         },
         error: function (xhr, status, error) {
-            alert(JSON.stringify(xhr) + '\nstatus:' + status + '\nerror:' + error + '\n');
+            alert(xhr + '\nstatus:' + status + '\nerror:' + error + '\n' + 'page: at dd');
         }
     });
 }
 
 function downloadSelectedAlbum(){
-    var checkedSize = $('input[name="album_checklist"]:checked').length;
+    var checkedSize = $('input[name="album_checklist"]:checked').length;//:checked
     if(checkedSize>0){
+       //$checked = $('input[name="album_checklist"]');
         var checked = document.getElementsByName('album_checklist');
         var albumIds = [];
         for(var i=0;i<checked.length;i++){
@@ -48,7 +49,7 @@ function downloadSelectedAlbum(){
                 }
             },
             error: function (xhr, status, error) {
-                alert(JSON.stringify(xhr) + '\nstatus:' + status + '\nerror:' + error + '\n');
+                alert(xhr + '\nstatus:' + status + '\nerror:' + error + '\n' + 'page: at dds');
             }
         });
     } else {
@@ -85,7 +86,7 @@ function downloadAllAlbum(){
                 }
             },
             error: function (xhr, status, error) {
-                alert(JSON.stringify(xhr) + '\nstatus:' + status + '\nerror:' + error + '\n');
+                alert(xhr + '\nstatus:' + status + '\nerror:' + error + '\n' + 'page: at ddall');
             }
         });    
     }
